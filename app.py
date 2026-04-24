@@ -15,136 +15,317 @@ st.set_page_config(
 # ─── Custom CSS ────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+:root {
+    --bg: #f4f1ea;
+    --panel: rgba(255, 252, 246, 0.78);
+    --panel-strong: #fffdf8;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --line: rgba(120, 98, 73, 0.16);
+    --accent: #c26d3a;
+    --accent-2: #8f4e2a;
+    --accent-soft: rgba(194, 109, 58, 0.12);
+    --success: #1f8f63;
+    --warning: #d18b17;
+    --danger: #d14b4b;
+    --shadow: 0 20px 60px rgba(73, 48, 28, 0.10);
+    --radius: 22px;
+}
 
 html, body, [class*="css"] {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Manrope', sans-serif;
+    color: var(--text);
 }
 
 .stApp {
-    background-color: #0d0d0d;
-    color: #e8e8e8;
+    background:
+        radial-gradient(circle at top left, rgba(210, 166, 121, 0.25), transparent 28%),
+        radial-gradient(circle at top right, rgba(193, 122, 73, 0.18), transparent 24%),
+        linear-gradient(180deg, #f9f6f0 0%, #f2ece2 100%);
+    color: var(--text);
+}
+
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    max-width: 1240px;
 }
 
 section[data-testid="stSidebar"] {
-    background-color: #111111;
-    border-right: 1px solid #2a2a2a;
+    background: rgba(255, 250, 242, 0.88);
+    backdrop-filter: blur(14px);
+    border-right: 1px solid var(--line);
+}
+
+section[data-testid="stSidebar"] > div {
+    padding-top: 1.4rem;
 }
 
 .main-title {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #00ff88;
-    letter-spacing: -0.5px;
-    margin-bottom: 0.2rem;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #1e1b16;
+    margin-bottom: 0.25rem;
 }
 
 .subtitle {
-    font-size: 0.85rem;
-    color: #555;
-    font-family: 'IBM Plex Mono', monospace;
-    margin-bottom: 2rem;
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+}
+
+.brand-chip {
+    display: inline-block;
+    background: rgba(255,255,255,0.72);
+    border: 1px solid var(--line);
+    color: var(--accent-2);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.hero-card {
+    background: linear-gradient(135deg, rgba(255,253,248,0.92), rgba(255,247,237,0.92));
+    border: 1px solid rgba(194,109,58,0.14);
+    box-shadow: var(--shadow);
+    border-radius: 28px;
+    padding: 1.6rem 1.6rem 1.3rem 1.6rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-card::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    right: -90px;
+    top: -110px;
+    background: radial-gradient(circle, rgba(194,109,58,0.18), transparent 68%);
+    pointer-events: none;
+}
+
+.hero-eyebrow {
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: 0.5rem;
+}
+
+.hero-title {
+    font-size: 2.25rem;
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: #171411;
+    margin-bottom: 0.65rem;
+    max-width: 760px;
+}
+
+.hero-copy {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #5f5a52;
+    max-width: 760px;
+    margin-bottom: 1rem;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    margin-top: 0.4rem;
+}
+
+.hero-stat {
+    min-width: 140px;
+    background: rgba(255,255,255,0.68);
+    border: 1px solid rgba(194,109,58,0.12);
+    border-radius: 18px;
+    padding: 0.85rem 1rem;
+}
+
+.hero-stat-value {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #1d1a16;
+}
+
+.hero-stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.15rem;
+}
+
+.section-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #2d261f;
+    margin: 1rem 0 0.8rem 0;
 }
 
 .status-card {
-    background: #161616;
-    border: 1px solid #2a2a2a;
-    border-radius: 8px;
-    padding: 14px 18px;
-    margin-bottom: 12px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.8rem;
-}
-
-.status-ok { border-left: 3px solid #00ff88; }
-.status-warn { border-left: 3px solid #ffaa00; }
-.status-err { border-left: 3px solid #ff4444; }
-
-.chunk-card {
-    background: #0f0f0f;
-    border: 1px solid #222;
-    border-radius: 6px;
-    padding: 12px 16px;
+    background: var(--panel);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 14px 16px;
     margin-bottom: 10px;
-    font-size: 0.82rem;
-    color: #aaa;
+    font-size: 0.88rem;
+    box-shadow: 0 10px 30px rgba(73, 48, 28, 0.05);
 }
 
-.chunk-meta {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    color: #444;
-    margin-bottom: 6px;
+.status-ok { border-left: 4px solid var(--success); }
+.status-warn { border-left: 4px solid var(--warning); }
+.status-err { border-left: 4px solid var(--danger); }
+
+.metric-box {
+    background: linear-gradient(180deg, #fffdf9, #f7f1e8);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(73, 48, 28, 0.06);
+}
+
+.metric-val {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--accent-2);
+}
+
+.metric-lbl {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
 }
 
 .answer-box {
-    background: #0a1a12;
-    border: 1px solid #00ff8833;
-    border-radius: 8px;
-    padding: 18px 22px;
-    color: #d4f5e4;
-    font-size: 0.95rem;
-    line-height: 1.7;
+    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(250,244,236,0.92));
+    border: 1px solid rgba(194,109,58,0.14);
+    border-radius: 22px;
+    padding: 18px 20px;
+    color: var(--text);
+    font-size: 0.98rem;
+    line-height: 1.8;
     margin-top: 10px;
+    box-shadow: 0 14px 34px rgba(73, 48, 28, 0.07);
+}
+
+.chunk-card {
+    background: rgba(255,255,255,0.82);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    font-size: 0.88rem;
+    color: #4b5563;
+}
+
+.chunk-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #8a8176;
+    margin-bottom: 8px;
+}
+
+.empty-state {
+    background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(250,244,236,0.88));
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    color: var(--text);
+}
+
+.empty-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+    color: #1f1a15;
+}
+
+.empty-copy {
+    color: var(--muted);
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.75;
+}
+
+div[data-testid="stFileUploader"] {
+    background: rgba(255,255,255,0.7) !important;
+    border: 1.5px dashed rgba(194,109,58,0.35) !important;
+    border-radius: 18px !important;
+    padding: 0.35rem !important;
+}
+
+div[data-testid="stFileUploader"] section {
+    padding: 1rem 0.6rem !important;
 }
 
 .stTextInput > div > div > input,
 .stTextArea textarea {
-    background-color: #161616 !important;
-    color: #e8e8e8 !important;
-    border: 1px solid #2a2a2a !important;
-    border-radius: 6px !important;
-    font-family: 'IBM Plex Sans', sans-serif !important;
+    background: rgba(255,255,255,0.86) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 16px !important;
+    font-family: 'Manrope', sans-serif !important;
 }
 
 .stButton > button {
-    background-color: #00ff88 !important;
-    color: #000 !important;
-    font-family: 'IBM Plex Mono', monospace !important;
-    font-weight: 600 !important;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)) !important;
+    color: #fffaf5 !important;
+    font-weight: 800 !important;
     border: none !important;
-    border-radius: 6px !important;
-    padding: 8px 20px !important;
-    letter-spacing: 0.3px !important;
+    border-radius: 16px !important;
+    padding: 0.75rem 1.1rem !important;
+    box-shadow: 0 14px 30px rgba(143, 78, 42, 0.22) !important;
 }
 
 .stButton > button:hover {
-    background-color: #00cc6a !important;
+    filter: brightness(1.03) !important;
+    transform: translateY(-1px);
 }
 
-div[data-testid="stFileUploader"] {
-    background-color: #111 !important;
-    border: 1px dashed #2a2a2a !important;
-    border-radius: 8px !important;
+div[data-testid="stChatMessage"] {
+    background: transparent !important;
 }
 
-.metric-row {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 16px;
+[data-testid="stChatInput"] {
+    background: rgba(255,255,255,0.7);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 0.2rem;
+    box-shadow: 0 12px 30px rgba(73, 48, 28, 0.06);
 }
 
-.metric-box {
-    flex: 1;
-    background: #111;
-    border: 1px solid #222;
-    border-radius: 8px;
-    padding: 12px;
-    text-align: center;
-    font-family: 'IBM Plex Mono', monospace;
+.stAlert {
+    border-radius: 18px !important;
 }
 
-.metric-val {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #00ff88;
+hr {
+    border-color: rgba(120, 98, 73, 0.12);
 }
 
-.metric-lbl {
-    font-size: 0.7rem;
-    color: #555;
-    margin-top: 2px;
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .hero-card,
+    .empty-state {
+        padding: 1.25rem;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -165,9 +346,11 @@ rag: RAGEngine = st.session_state.rag
 
 # ─── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown('<div class="main-title">⬡ PDF RAG</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">// local · free · grounded</div>', unsafe_allow_html=True)
-
+    st.markdown('<div class="brand-chip">Document Intelligence</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">Ask Your PDF</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="subtitle">Upload a PDF, index it locally, and get grounded answers with a polished assistant-style experience.</div>',
+        unsafe_allow_html=True)
     st.markdown("### Upload PDF")
     uploaded_file = st.file_uploader("", type=["pdf"], label_visibility="collapsed")
 
@@ -219,10 +402,40 @@ with st.sidebar:
         st.warning("Ollama not running. See README for setup.")
 
 # ─── Main Panel ────────────────────────────────────────────────────────────────
-st.markdown('<div class="main-title" style="font-size:1.4rem">Ask Your PDF</div>', unsafe_allow_html=True)
+st.markdown(f'''
+<div class="hero-card">
+    <div class="hero-eyebrow">Private • Local • Retrieval-Augmented</div>
+    <div class="hero-title">Turn long PDFs into a clean, premium Q&A experience.</div>
+    <div class="hero-copy">
+        Search contracts, reports, manuals, and research papers with grounded answers sourced from your own document.
+    </div>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hero-stat-value">{st.session_state.chunks_count if st.session_state.chunks_count else "0"}</div>
+            <div class="hero-stat-label">Chunks indexed</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">{len(st.session_state.chat_history)}</div>
+            <div class="hero-stat-label">Questions asked</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">Local</div>
+            <div class="hero-stat-label">Processing mode</div>
+        </div>
+    </div>
+</div>
+''', unsafe_allow_html=True)
 
 if not st.session_state.pdf_loaded:
-    st.info("👈  Upload and index a PDF using the sidebar to get started.")
+    st.markdown("""
+<div class="empty-state">
+    <div class="empty-title">Start with a document</div>
+    <div class="empty-copy">
+        Upload a PDF from the left panel, click <b>Index PDF</b>, and this workspace will transform into a document chat assistant with source-grounded answers.
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
 else:
     # Chat history
     for entry in st.session_state.chat_history:

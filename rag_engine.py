@@ -177,6 +177,18 @@ ANSWER:"""
                 timeout=120
             )
             resp.raise_for_status()
+
+            # Ollama streaming returns newline-delimited JSON chunks.
+            if "\n" in resp.text.strip():
+                parts = []
+                for line in resp.iter_lines(decode_unicode=True):
+                    if not line:
+                        continue
+                    data = json.loads(line)
+                    parts.append(data.get("response", ""))
+                answer = "".join(parts).strip()
+                return answer or "No response from model."
+
             return resp.json().get("response", "No response from model.").strip()
         except requests.exceptions.ConnectionError:
             return "❌ Cannot connect to Ollama. Make sure it is running: `ollama serve`"
