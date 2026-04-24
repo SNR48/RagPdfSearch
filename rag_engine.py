@@ -167,7 +167,7 @@ ANSWER:"""
                 json={
                     "model":  OLLAMA_MODEL,
                     "prompt": prompt,
-                    "stream": False,
+                    "stream": True,
                     "options": {
                         "temperature": 0.1,
                         "num_predict": 512,
